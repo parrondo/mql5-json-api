@@ -32,7 +32,7 @@ Not working:
 ## Installation and usage
 
 1. Inastall ZeroMQ for MQL5 [https://github.com/dingmaotu/mql-zmq](https://github.com/dingmaotu/mql-zmq)
-2. Put 'include/json.mpq' from this repo to your host 'include' directoty.
+2. Put 'include/json.mqh' from this repo to your host 'include' directoty.
 3. Compile the code and attach it to chart in Metatrader 5. 
 4. This version dosn't support symbol and timeframe changing. You should control it yourself.
 
