@@ -1,46 +1,41 @@
 # Metaquotes MQL5 - Python Backtrader - API
 
 ### Development state: Alfa (Code not stable yet, documentation in development)
-[Report Bug](https://github.com/khramkov/MQL5-Backtrader-API/issues) [Request Feature](https://github.com/khramkov/MQL5-Backtrader-API/issues)
+
+[Report Bug](https://github.com/khramkov/MQL5-Backtrader-API/issues) or [Request Feature](https://github.com/khramkov/MQL5-Backtrader-API/issues)
 
 ## Table of Contents
 * [About the Project](#about-the-project)
-* [Installation](#installation)
+* [Installation and usage](#Installation and usage)
 * [Usage](#usage)
 * [License](#license)
 
 ## About The Project
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
+This project was created to work as a broker for Backtrader trading framework. It uses ZeroMQ sockets to communicate. Python side of this project located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/MQL5-Backtrader-API)
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue with the tag.
+Working:
+* Account info
+* Balance info
+* Historical data
+* Live data
+* Fetching orders/positions
+* Order creation
 
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+Not working:
+* Cancel order
+* Close position
+* Trades info
+* Check socket connection
+* Change timeframe and instrument symdol
 
+## Installation and usage
 
-## Installation
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-```sh
-git clone https:://github.com/your_username_/Project-Name.git
-```
-3. Install NPM packages
-```sh
-npm install
-```
-4. Enter your API in `config.js`
-```JS
-const API_KEY = 'ENTER YOUR API';
-```
+1. Inastall ZeroMQ for MQL5 [https://github.com/dingmaotu/mql-zmq](https://github.com/dingmaotu/mql-zmq)
+2. Put 'include/json.mpq' from this repo to your host 'include' directoty.
+3. Compile the code and attach it to chart in Metatrader 5. 
+4. This version dosn't support symbol and timeframe changing. You should control it yourself.
 
-## Usage
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
