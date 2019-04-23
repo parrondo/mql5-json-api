@@ -1,17 +1,7 @@
-<!-- PROJECT SHIELDS -->
-[![Build Status][build-shield]]()
-[![Contributors][contributors-shield]]()
-[![MIT License][license-shield]][license-url]
-
 # Metaquotes MQL5 - Python Backtrader - API
 
 ### Development state: Alfa (Code not stable yet, documentation in development)
-
-<p align="left">
-  [Report Bug](https://github.com/khramkov/MQL5-Backtrader-API/issues)
-  ·
-  [Request Feature](https://github.com/khramkov/MQL5-Backtrader-API/issues)
-</p>
+[Report Bug](https://github.com/khramkov/MQL5-Backtrader-API/issues) [Request Feature](https://github.com/khramkov/MQL5-Backtrader-API/issues)
 
 ## Table of Contents
 * [About the Project](#about-the-project)
