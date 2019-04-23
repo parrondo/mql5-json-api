@@ -6,8 +6,7 @@
 
 ## Table of Contents
 * [About the Project](#about-the-project)
-* [Installation and usage](#Installation and usage)
-* [Usage](#usage)
+* [Installation and usage](#installation-and-usage)
 * [License](#license)
 
 ## About The Project
