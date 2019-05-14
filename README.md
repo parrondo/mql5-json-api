@@ -1,8 +1,8 @@
 # Metaquotes MQL5 - Python Backtrader - API
 
-### Development state: Alfa (Code not stable yet, documentation in development)
+### Development state: Betta (Code is stable, documentation in development)
 
-[Report Bug](https://github.com/khramkov/MQL5-Backtrader-API/issues) or [Request Feature](https://github.com/khramkov/MQL5-Backtrader-API/issues)
+[Report Bug](https://github.com/khramkov/MQL5-JSON-API/issues) or [Request Feature](https://github.com/khramkov/MQL5-JSON-API/issues)
 
 ## Table of Contents
 * [About the Project](#about-the-project)
@@ -11,22 +11,21 @@
 
 ## About The Project
 
-This project was created to work as a broker for Backtrader trading framework. It uses ZeroMQ sockets to communicate. Python side of this project located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/MQL5-Backtrader-API)
+This project was created to work as a broker for Backtrader trading framework. It uses ZeroMQ sockets to communicate. Python side of this project located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/Backtrader-MQL5-API)
 
 Working:
+* Change timeframe and instrument symdol
 * Account info
 * Balance info
 * Historical data
 * Live data
 * Fetching orders/positions
 * Order creation
-
-Not working:
 * Cancel order
 * Close position
+
+Not working:
 * Trades info
-* Check socket connection
-* Change timeframe and instrument symdol
 
 ## Installation and usage
 
