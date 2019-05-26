@@ -221,7 +221,7 @@ print(rep)
 
 Get historical data. `fromDate` should be in timestamp format. There are some issues:
 
-- MetaTrader keeps historical data in cache. But when you make a request for the first time, MetaTrader downloads data from a broker. This operation can exceed `Data socket` timout. It depends on your broker. Second request will be handeled quickly.
+- MetaTrader keeps historical data in cache. But when you make a request for the first time, MetaTrader downloads data from a broker. This operation can exceed `Data socket` timeout. It depends on your broker. Second request will be handeled quickly.
 - Historical data processing code is not optimal. It takes too much time to process more than `50000` candles. Under refactoring now.
 
 ``` python
