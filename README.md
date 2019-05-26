@@ -46,7 +46,7 @@ The script uses four ZeroMQ sockets:
 3. `Live socket` - automatically pushes last candle when it closes.
 4. `Streaming socket` - automatically pushes last transaction info every time it happens.
 
-The idea is to send requests via `System socket` and recieve results/errors via `Data socket`. For `Live socket` and `Streaming socket` event handlers should be created because server sends data to theese sockets automatically. See examples in [Usage](#usage) section.
+The idea is to send requests via `System socket` and recieve results/errors via `Data socket`. Event handlers should be created for `Live socket` and `Streaming socket` because server sends data to theese sockets automatically. See examples in [Usage](#usage) section.
 
 `System socket` request uses default JSON dictionary:
 
@@ -73,7 +73,7 @@ Check out the available combinations of `action` and `actionType`:
 
 action     | actionType           | Description                |
 -----------|----------------------|----------------------------|
-CONFIG     | None            	    | Set script configuration   |
+CONFIG     | None            	  | Set script configuration   |
 ACCOUNT    | None                 | Get account settings       |
 BALANCE    | None                 | Get current balance        |
 POSITIONS  | None                 | Get current open positions |
