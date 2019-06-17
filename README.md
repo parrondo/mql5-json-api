@@ -12,10 +12,10 @@
 
 ## About the Project
 
-This project was developed to work as a server for Backtrader Python trading framework. It is based on ZeroMQ sockets and uses JSON format to communicate. But now it has grown to the independent project. You can use it with any language that has [ZeroMQ binding](http://zeromq.org/bindings:_start).
+This project was developed to work as a server for the Backtrader Python trading framework. It is based on ZeroMQ sockets and uses JSON format to communicate. But now it has grown to the independent project. You can use it with any language that has [ZeroMQ binding](http://zeromq.org/bindings:_start).
 
 
-Backtrader Python client located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/MQL5-Backtrader-API)
+Backtrader Python client located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/Backtrader-MQL5-API)
 
 In development:
 * Add error handling to docs
@@ -42,11 +42,11 @@ Tested on macOS Mojave / Windows 10 in Parallels Desktop container.
 The script uses four ZeroMQ sockets:
 
 1. `System socket` - recives requests from client and replies 'OK'
-2. `Data socket` - pushes data to client depending on request via System socket.
+2. `Data socket` - pushes data to client depending on the request via System socket.
 3. `Live socket` - automatically pushes last candle when it closes.
 4. `Streaming socket` - automatically pushes last transaction info every time it happens.
 
-The idea is to send requests via `System socket` and recieve results/errors via `Data socket`. Event handlers should be created for `Live socket` and `Streaming socket` because server sends data to theese sockets automatically. See examples in [Live data and streaming events](#live-data-and-streaming-events) section.
+The idea is to send requests via `System socket` and recieve results/errors via `Data socket`. Event handlers should be created for `Live socket` and `Streaming socket` because the server sends data to theese sockets automatically. See examples in [Live data and streaming events](#live-data-and-streaming-events) section.
 
 `System socket` request uses default JSON dictionary:
 
@@ -223,7 +223,9 @@ rep = api.construct_and_send(action="ACCOUNT")
 print(rep)
 ```
 
-Get historical data. `fromDate` should be in timestamp format. If `toDate` is `None`  There are some issues:
+Get historical data. `fromDate` should be in timestamp format. The data will be loadet to the last candle if `toDate` is `None`. Notice, that the script sends the last unclosed candle too. You should delete it manually.
+
+There are some issues:
 
 - MetaTrader keeps historical data in cache. But when you make a request for the first time, MetaTrader downloads data from a broker. This operation can exceed `Data socket` timeout. It depends on your broker. Second request will be handeled quickly.
 - It takes 6-7 seconds to process `50000` M1 candles. It was tested on Windows 10 in Parallels Desktop container with 4 cores and 4GB RAM. So if you need more data there are three ways to handle it. 1) Increase `Data socket` timeout. 2) You can load data partially using `fromDate` and `toDate`. 3) You can use more powerfull hardware.
