@@ -315,7 +315,7 @@ If the terminal has lost connection to the market:
 
 When the terminal reconnects to the market, it sends the last closed candle again. So you should update the historical data. Make the `action="HISTORY"` request with `fromDate` equal to your last candle timestamp.
 
-`OnTradeTransaction` function is called when the trade transaction event occurs. `Streaming socket` sends `TRADE_TRANSACTION_REQUEST` data every time it happens. You can create and modify orders/positions in the MQL5 terminal manually and check the expert logging tub for better understanding. Also see [MQL5 docs](https://www.mql5.com/en/docs/event_handlers/ontradetransaction). 
+`OnTradeTransaction` function is called when the trade transaction event occurs. `Streaming socket` sends `TRADE_TRANSACTION_REQUEST` data every time it happens. Try to create and modify orders in the MQL5 terminal manually and check the expert logging tab for better understanding. Also see [MQL5 docs](https://www.mql5.com/en/docs/event_handlers/ontradetransaction). 
 
 `TRADE_TRANSACTION_REQUEST` request data:
 
