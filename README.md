@@ -73,7 +73,7 @@ Check out the available combinations of `action` and `actionType`:
 
 action     | actionType           | Description                |
 -----------|----------------------|----------------------------|
-CONFIG     | None            	  | Set script configuration   |
+CONFIG     | None            	    | Set script configuration   |
 ACCOUNT    | None                 | Get account settings       |
 BALANCE    | None                 | Get current balance        |
 POSITIONS  | None                 | Get current open positions |
@@ -307,15 +307,15 @@ There are only two variants of `Live socket` data. When everything is ok, the sc
 {"status":"CONNECTED","data":[1560780120,1.12186,1.12194,1.12186,1.12191,15.00000]}
 ```
 
-If the terminal has lost connection to market:
+If the terminal has lost connection to the market:
 
 ```
 {"status":"DISCONNECTED"}
 ```
 
-When the terminal reconnects to market, it sends last closed candle again. So you should update historical data. Make the `action="HISTORY"` request with `fromDate` equal to your last candle timestamp.
+When the terminal reconnects to the market, it sends the last closed candle again. So you should update the historical data. Make the `action="HISTORY"` request with `fromDate` equal to your last candle timestamp.
 
-`OnTradeTransaction` function is called when the trade transaction event occurs. `Streaming socket` sends `TRADE_TRANSACTION_REQUEST` data every time it happens. You can create and modify orders/positions in terminal manually and check expert logging tub for better understanding. Also see [MQL5 docs](https://www.mql5.com/en/docs/event_handlers/ontradetransaction). 
+`OnTradeTransaction` function is called when the trade transaction event occurs. `Streaming socket` sends `TRADE_TRANSACTION_REQUEST` data every time it happens. You can create and modify orders/positions in the MQL5 terminal manually and check the expert logging tub for better understanding. Also see [MQL5 docs](https://www.mql5.com/en/docs/event_handlers/ontradetransaction). 
 
 `TRADE_TRANSACTION_REQUEST` request data:
 
@@ -357,4 +357,5 @@ When the terminal reconnects to market, it sends last closed candle again. So yo
 
 ## License
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See `LICENSE` for more information.
