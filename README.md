@@ -209,7 +209,7 @@ All examples will be on Python 3. Lets create an instance of MetaTrader API clas
 api = MTraderAPI()
 ```
 
-First of all we should configure script `symbol` and `timeframe`. Live data stream will be configured to the seme params.
+First of all we should configure the script `symbol` and `timeframe`. Live data stream will be configured to the seme params.
 
 ``` python
 rep = api.construct_and_send(action="CONFIG", symbol="EURUSD", chartTF="M5")
@@ -223,7 +223,7 @@ rep = api.construct_and_send(action="ACCOUNT")
 print(rep)
 ```
 
-Get historical data. `fromDate` should be in timestamp format. The data will be loadet to the last candle if `toDate` is `None`. Notice, that the script sends the last unclosed candle too. You should delete it manually.
+Get historical data. `fromDate` should be in timestamp format. The data will be loaded to the last candle if `toDate` is `None`. Notice, that the script sends the last unclosed candle too. You should delete it manually.
 
 There are some issues:
 
@@ -315,7 +315,7 @@ If the terminal has lost connection to the market:
 {"status":"DISCONNECTED"}
 ```
 
-When the terminal reconnects to the market, it sends the last closed candle again. So you should update the historical data. Make the `action="HISTORY"` request with `fromDate` equal to your last candle timestamp.
+When the terminal reconnects to the market, it sends the last closed candle again. So you should update your historical data. Make the `action="HISTORY"` request with `fromDate` equal to your last candle timestamp before disconnect.
 
 `OnTradeTransaction` function is called when the trade transaction event occurs. `Streaming socket` sends `TRADE_TRANSACTION_REQUEST` data every time it happens. Try to create and modify orders in the MQL5 terminal manually and check the expert logging tab for better understanding. Also see [MQL5 docs](https://www.mql5.com/en/docs/event_handlers/ontradetransaction). 
 
