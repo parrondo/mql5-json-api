@@ -52,32 +52,32 @@ The idea is to send requests via `System socket` and recieve results/errors via 
 
 ```
 {
-	"action": None,
-	"actionType": None,
-	"symbol": None,
-	"chartTF": None,
-	"fromDate": None,
-	"toDate": None,
-	"id": None,
-	"magic": None,
-	"volume": None,
-	"price": None,
-	"stoploss": None,
-	"takeprofit": None,
-	"expiration": None,
-	"deviation": None,
-	"comment": None
+	"action": null,
+	"actionType": null,
+	"symbol": null,
+	"chartTF": null,
+	"fromDate": null,
+	"toDate": null,
+	"id": null,
+	"magic": null,
+	"volume": null,
+	"price": null,
+	"stoploss": null,
+	"takeprofit": null,
+	"expiration": null,
+	"deviation": null,
+	"comment": null
 }
 ```
 Check out the available combinations of `action` and `actionType`:
 
 action     | actionType           | Description                |
 -----------|----------------------|----------------------------|
-CONFIG     | None            	    | Set script configuration   |
-ACCOUNT    | None                 | Get account settings       |
-BALANCE    | None                 | Get current balance        |
-POSITIONS  | None                 | Get current open positions |
-ORDERS     | None                 | Get current open orders    |
+CONFIG     | null            	    | Set script configuration   |
+ACCOUNT    | null                 | Get account settings       |
+BALANCE    | null                 | Get current balance        |
+POSITIONS  | null                 | Get current open positions |
+ORDERS     | null                 | Get current open orders    |
 HISTORY    | DATA                 | Get data history           |
 HISTORY    | TRADES               | Get trades history         |
 TRADE      | ORDER_TYPE_BUY       | Buy market                 |
