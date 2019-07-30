@@ -8,6 +8,7 @@
 * [Documentation](#documentation)
 * [Usage](#usage)
 * [Live data and streaming events](#live-data-and-streaming-events)
+* [Error handling](#error-handling)
 * [License](#license)
 
 ## About the Project
@@ -18,7 +19,6 @@ This project was developed to work as a server for the Backtrader Python trading
 Backtrader Python client located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/Backtrader-MQL5-API)
 
 In development:
-* Add error handling to docs
 * Devitation
 * Stop limit orders
 
@@ -358,6 +358,13 @@ When the terminal reconnects to the market, it sends the last closed candle agai
 	'retcode_external': 0
 }
 ```
+
+## Error handling
+First of all, when you send command via `System socket`, you should always receive `"OK"` message back via `System socket`. It means that your command was received and deserialized. 
+
+All data that come through `Data socket` have an `error` param. This param will have `true` key if somethng is wrong. Also, there will be `description` and `function` params. They will held information about error and the name of the function with error. 
+
+This information also applies to trade commannds. See [MQL5 docs](https://www.mql5.com/en/docs/constants/errorswarnings/enum_trade_return_codes) for possible server answers.
 
 ## License
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
