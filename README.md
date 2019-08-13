@@ -8,6 +8,7 @@
 * [Documentation](#documentation)
 * [Usage](#usage)
 * [Live data and streaming events](#live-data-and-streaming-events)
+* [Error handling](#error-handling)
 * [License](#license)
 
 ## About the Project
@@ -18,11 +19,7 @@ This project was developed to work as a server for the Backtrader Python trading
 Backtrader Python client located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/Backtrader-MQL5-API)
 
 In development:
-* Add error handling to docs
-* Trades info
-* Experation
 * Devitation
-* Netting/hedging mode switch
 * Stop limit orders
 
 ## Installation
@@ -244,7 +241,7 @@ History data reply example:
 Buy market order.
 
 ``` python
-rep = api.construct_and_send(action="TRADE", actionType="ORDER_TYPE_BUY", symbol="EURUSD", "volume": 0.1, "stoploss": 1.1, "takeprofit": 1.3)
+rep = api.construct_and_send(action="TRADE", actionType="ORDER_TYPE_BUY", symbol="EURUSD", "volume"=0.1, "stoploss"=1.1, "takeprofit"=1.3)
 print(rep)
 ```
 
@@ -254,7 +251,13 @@ Sell limit order. Remember to switch SL/TP depending on BUY/SELL, or you will ge
 - SELL: 	SL > price > TP
 
 ``` python
-rep = api.construct_and_send(action="TRADE", actionType="ORDER_TYPE_SELL_LIMIT", symbol="EURUSD", "volume": 0.1, "price": 1.2, "stoploss": 1.3, "takeprofit": 1.1)
+rep = api.construct_and_send(action="TRADE", actionType="ORDER_TYPE_SELL_LIMIT", symbol="EURUSD", "volume"=0.1, "price"=1.2, "stoploss"=1.3, "takeprofit"=1.1)
+print(rep)
+```
+All pending orders are set to `Good till cancel` by default. If you want to set an expiration date, pass the date in timestamp format to `expiration` param.
+
+``` python
+rep = api.construct_and_send(action="TRADE", actionType="ORDER_TYPE_SELL_LIMIT", symbol="EURUSD", "volume"=0.1, "price"=1.2, "expiration"=1560782460)
 print(rep)
 ```
 ## Live data and streaming events
@@ -290,20 +293,19 @@ def _t_streaming_events():
         print(reply)
 
 
-for _ in range(3):
-    t = threading.Thread(target=_t_livedata, daemon=True)
-    t.start()
 
-for _ in range(3):
-    t = threading.Thread(target=_t_streaming_events, daemon=True)
-    t.start()
+t = threading.Thread(target=_t_livedata, daemon=True)
+t.start()
+
+t = threading.Thread(target=_t_streaming_events, daemon=True)
+t.start()
 
 while True:
     pass
 ```
 
 
-There are only two variants of `Live socket` data. When everything is ok, the script sends candle data on close:
+There are only two variants of `Live socket` data. When everything is ok, the script sends data on candle close:
 
 ```
 {"status":"CONNECTED","data":[1560780120,1.12186,1.12194,1.12186,1.12191,15.00000]}
@@ -356,6 +358,13 @@ When the terminal reconnects to the market, it sends the last closed candle agai
 	'retcode_external': 0
 }
 ```
+
+## Error handling
+First of all, when you send command via `System socket`, you should always receive `"OK"` message back via `System socket`. It means that your command was received and deserialized. 
+
+All data that come through `Data socket` have an `error` param. This param will have `true` key if somethng is wrong. Also, there will be `description` and `function` params. They will held information about error and the name of the function with error. 
+
+This information also applies to trade commannds. See [MQL5 docs](https://www.mql5.com/en/docs/constants/errorswarnings/enum_trade_return_codes) for possible server answers.
 
 ## License
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
