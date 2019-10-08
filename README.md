@@ -1,6 +1,8 @@
 # Metaquotes MQL5 - JSON - API
 
-### Development state: stable beta (code is stable)
+### Development state: first stable release
+Tested on macOS Mojave / Windows 10 in Parallels Desktop container.
+Working in production on Debian 10 / Wine 4.
 
 ## Table of Contents
 * [About the Project](#about-the-project)
@@ -13,10 +15,10 @@
 
 ## About the Project
 
-This project was developed to work as a server for the Backtrader Python trading framework. It is based on ZeroMQ sockets and uses JSON format to communicate. But now it has grown to the independent project. You can use it with any language that has [ZeroMQ binding](http://zeromq.org/bindings:_start).
+This project was developed to work as a server for the Backtrader Python trading framework. It is based on ZeroMQ sockets and uses JSON format to communicate. But now it has grown to the independent project. You can use it with any programming language that has [ZeroMQ binding](http://zeromq.org/bindings:_start).
 
 
-Backtrader Python client located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/Backtrader-MQL5-API)
+Backtrader Python client is located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/Backtrader-MQL5-API)
 
 In development:
 * Devitation
@@ -31,8 +33,6 @@ In development:
 5. Attach the script to a chart in Metatrader 5.
 6. Allow DLL import in dialog window.
 7. Check if the ports are free to use. (default:`15555`,`15556`, `15557`,`15558`)
-
-Tested on macOS Mojave / Windows 10 in Parallels Desktop container.
 
 ## Documentation
 
@@ -213,7 +213,7 @@ rep = api.construct_and_send(action="CONFIG", symbol="EURUSD", chartTF="M5")
 print(rep)
 ```
 
-Get information about trading account.
+Get information about the trading account.
 
 ``` python
 rep = api.construct_and_send(action="ACCOUNT")
@@ -224,7 +224,7 @@ Get historical data. `fromDate` should be in timestamp format. The data will be 
 
 There are some issues:
 
-- MetaTrader keeps historical data in cache. But when you make a request for the first time, MetaTrader downloads data from a broker. This operation can exceed `Data socket` timeout. It depends on your broker. Second request will be handeled quickly.
+- MetaTrader keeps historical data in cache. But when you make a request for the first time, MetaTrader downloads the data from a broker. This operation can exceed `Data socket` timeout. It depends on your broker. Second request will be handeled quickly.
 - It takes 6-7 seconds to process `50000` M1 candles. It was tested on Windows 10 in Parallels Desktop container with 4 cores and 4GB RAM. So if you need more data there are three ways to handle it. 1) Increase `Data socket` timeout. 2) You can load data partially using `fromDate` and `toDate`. 3) You can use more powerfull hardware.
 
 ``` python
@@ -319,7 +319,7 @@ If the terminal has lost connection to the market:
 
 When the terminal reconnects to the market, it sends the last closed candle again. So you should update your historical data. Make the `action="HISTORY"` request with `fromDate` equal to your last candle timestamp before disconnect.
 
-`OnTradeTransaction` function is called when the trade transaction event occurs. `Streaming socket` sends `TRADE_TRANSACTION_REQUEST` data every time it happens. Try to create and modify orders in the MQL5 terminal manually and check the expert logging tab for better understanding. Also see [MQL5 docs](https://www.mql5.com/en/docs/event_handlers/ontradetransaction). 
+`OnTradeTransaction` function is called when a trade transaction event occurs. `Streaming socket` sends `TRADE_TRANSACTION_REQUEST` data every time it happens. Try to create and modify orders in the MQL5 terminal manually and check the expert logging tab for better understanding. Also see [MQL5 docs](https://www.mql5.com/en/docs/event_handlers/ontradetransaction). 
 
 `TRADE_TRANSACTION_REQUEST` request data:
 
@@ -360,13 +360,12 @@ When the terminal reconnects to the market, it sends the last closed candle agai
 ```
 
 ## Error handling
-First of all, when you send command via `System socket`, you should always receive `"OK"` message back via `System socket`. It means that your command was received and deserialized. 
+First of all, when you send a command via `System socket`, you should always receive back `"OK"` message via `System socket`. It means that your command was received and deserialized. 
 
-All data that come through `Data socket` have an `error` param. This param will have `true` key if somethng is wrong. Also, there will be `description` and `function` params. They will held information about error and the name of the function with error. 
+All data that come through `Data socket` have an `error` param. This param will have `true` key if somethng goes wrong. Also, there will be `description` and `function` params. They will hold information about error and the name of the function with error. 
 
-This information also applies to trade commannds. See [MQL5 docs](https://www.mql5.com/en/docs/constants/errorswarnings/enum_trade_return_codes) for possible server answers.
+This information also applies to the trade commannds. See [MQL5 docs](https://www.mql5.com/en/docs/constants/errorswarnings/enum_trade_return_codes) for possible server answers.
 
 ## License
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See `LICENSE` for more information.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See `LICENSE` for more information.
