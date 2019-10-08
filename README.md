@@ -1,7 +1,9 @@
 # Metaquotes MQL5 - JSON - API
 
 ### Development state: first stable release
+
 Tested on macOS Mojave / Windows 10 in Parallels Desktop container.
+
 Working in production on Debian 10 / Wine 4.
 
 ## Table of Contents
