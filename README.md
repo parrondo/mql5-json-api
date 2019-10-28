@@ -6,6 +6,8 @@ Tested on macOS Mojave / Windows 10 in Parallels Desktop container.
 
 Working in production on Debian 10 / Wine 4.
 
+An issue was found because of REP/REQ socket. Architecture changes are in development.
+
 ## Table of Contents
 * [About the Project](#about-the-project)
 * [Installation](#installation)
