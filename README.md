@@ -2,11 +2,11 @@
 
 ### Development state: first stable release
 
-Tested on macOS Mojave / Windows 10 in Parallels Desktop container.
+Tested on Windows 10.
 
-Working in production on Debian 10 / Wine 4.
+Working in testing mode on Windows 10.
 
-An issue was found because of REP/REQ socket. Architecture changes are in development.
+Still under development.
 
 ## Table of Contents
 * [About the Project](#about-the-project)
@@ -19,10 +19,10 @@ An issue was found because of REP/REQ socket. Architecture changes are in develo
 
 ## About the Project
 
-This project was developed to work as a server for the Backtrader Python trading framework. It is based on ZeroMQ sockets and uses JSON format to communicate. But now it has grown to the independent project. You can use it with any programming language that has [ZeroMQ binding](http://zeromq.org/bindings:_start).
+This project is a server for the Metatrader trading community. It is based on ZeroMQ sockets and uses JSON format to communicate. We usually use it with Python clients, but you can use it with any programming language that has [ZeroMQ binding](http://zeromq.org/bindings:_start).
 
 
-Backtrader Python client is located here: [Python Backtrader - Metaquotes MQL5 ](https://github.com/khramkov/Backtrader-MQL5-API)
+Backtrader Python client is located here: [Python Metatrader - Backtrader - API ](https://github.com/parrondo/metatrader-backtrader-api)
 
 In development:
 * Devitation
@@ -31,23 +31,24 @@ In development:
 ## Installation
 
 1. Install ZeroMQ for MQL5 [https://github.com/dingmaotu/mql-zmq](https://github.com/dingmaotu/mql-zmq)
-2. Put `include/Json.mqh` from this repo to your MetaEditor `include` directoty.
-3. Download and compile `experts/JsonAPI.mq5` script. 
-4. Check if Metatrader 5 automatic trading is allowed.
-5. Attach the script to a chart in Metatrader 5.
-6. Allow DLL import in dialog window.
-7. Check if the ports are free to use. (default:`15555`,`15556`, `15557`,`15558`)
+2. Put `include/JsonAPI` from this repo to your MetaEditor `include` folder.
+3. Put `experts/JsonAPI.mq5` from this repo to your MetaEditor `experts` folder.
+4. Compile JsonAPI.mq5 
+5. Check if Metatrader 5 automatic trading is allowed.
+6. Attach the script to a chart in Metatrader 5.
+7. Allow DLL import in dialog window.
+8. Check if the ports are free to use. (default:`15555`,`15556`, `15557`,`15558`)
 
 ## Documentation
 
 The script uses four ZeroMQ sockets:
 
-1. `System socket` - recives requests from client and replies 'OK'
+1. `System socket` - receives requests from client and replies 'OK'
 2. `Data socket` - pushes data to client depending on the request via System socket.
 3. `Live socket` - automatically pushes last candle when it closes.
 4. `Streaming socket` - automatically pushes last transaction info every time it happens.
 
-The idea is to send requests via `System socket` and recieve results/errors via `Data socket`. Event handlers should be created for `Live socket` and `Streaming socket` because the server sends data to theese sockets automatically. See examples in [Live data and streaming events](#live-data-and-streaming-events) section.
+The idea is to send requests via `System socket` and receive results/errors via `Data socket`. Event handlers should be created for `Live socket` and `Streaming socket` because the server sends data to theese sockets automatically. See examples in [Live data and streaming events](#live-data-and-streaming-events) section.
 
 `System socket` request uses default JSON dictionary:
 
@@ -74,7 +75,6 @@ Check out the available combinations of `action` and `actionType`:
 
 action     | actionType           | Description                |
 -----------|----------------------|----------------------------|
-CONFIG     | null            	    | Set script configuration   |
 ACCOUNT    | null                 | Get account settings       |
 BALANCE    | null                 | Get current balance        |
 POSITIONS  | null                 | Get current open positions |
@@ -210,7 +210,7 @@ All examples will be on Python 3. Lets create an instance of MetaTrader API clas
 api = MTraderAPI()
 ```
 
-First of all we should configure the script `symbol` and `timeframe`. Live data stream will be configured to the seme params.
+First of all we should configure the script `symbol` and `timeframe`. Live data stream will be configured to the same parameters.
 
 ``` python
 rep = api.construct_and_send(action="CONFIG", symbol="EURUSD", chartTF="M5")
@@ -226,10 +226,7 @@ print(rep)
 
 Get historical data. `fromDate` should be in timestamp format. The data will be loaded to the last candle if `toDate` is `None`. Notice, that the script sends the last unclosed candle too. You should delete it manually.
 
-There are some issues:
 
-- MetaTrader keeps historical data in cache. But when you make a request for the first time, MetaTrader downloads the data from a broker. This operation can exceed `Data socket` timeout. It depends on your broker. Second request will be handeled quickly.
-- It takes 6-7 seconds to process `50000` M1 candles. It was tested on Windows 10 in Parallels Desktop container with 4 cores and 4GB RAM. So if you need more data there are three ways to handle it. 1) Increase `Data socket` timeout. 2) You can load data partially using `fromDate` and `toDate`. 3) You can use more powerfull hardware.
 
 ``` python
 rep = api.construct_and_send(action="HISTORY", actionType="DATA", symbol="EURUSD", chartTF="M5", fromDate=1555555555)
@@ -368,7 +365,7 @@ First of all, when you send a command via `System socket`, you should always rec
 
 All data that come through `Data socket` have an `error` param. This param will have `true` key if somethng goes wrong. Also, there will be `description` and `function` params. They will hold information about error and the name of the function with error. 
 
-This information also applies to the trade commannds. See [MQL5 docs](https://www.mql5.com/en/docs/constants/errorswarnings/enum_trade_return_codes) for possible server answers.
+This information also applies to the trade commands. See [MQL5 docs](https://www.mql5.com/en/docs/constants/errorswarnings/enum_trade_return_codes) for possible server answers.
 
 ## License
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
