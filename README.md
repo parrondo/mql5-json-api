@@ -1,4 +1,4 @@
-# Metaquotes MQL5 - JSON - API
+# Metatrader MQL5 - JSON - API
 
 ### Development state: first stable release
 
@@ -18,6 +18,8 @@ Still under development.
 * [License](#license)
 
 ## About the Project
+
+The initial project was a forked from [Metaquotes MQL5 - JSON - API] (https://github.com/khramkov/MQL5-JSON-API.git) (all credit to Khramkov efforts, thank you!), but the actual code and its compatibility is far enought to start a new project.
 
 This project is a server for the Metatrader trading community. It is based on ZeroMQ sockets and uses JSON format to communicate. We usually use it with Python clients, but you can use it with any programming language that has [ZeroMQ binding](http://zeromq.org/bindings:_start).
 
@@ -210,12 +212,7 @@ All examples will be on Python 3. Lets create an instance of MetaTrader API clas
 api = MTraderAPI()
 ```
 
-First of all we should configure the script `symbol` and `timeframe`. Live data stream will be configured to the same parameters.
-
-``` python
-rep = api.construct_and_send(action="CONFIG", symbol="EURUSD", chartTF="M5")
-print(rep)
-```
+First of all we shouldn't configure the script with account parameters because this step is included in the expert parameters.
 
 Get information about the trading account.
 
